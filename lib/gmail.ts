@@ -14,13 +14,9 @@ export async function getGmailClient() {
 
   // Read tokens from the database via admin client (always fresh, not from JWT)
   const admin = createAdminClient()
-  const { data: { user }, error: adminError } = await admin.auth.admin.getUserById(sessionUser.id)
-  console.log('getUserById error:', adminError?.message ?? 'none')
-  console.log('getUserById user found:', !!user)
+  const { data: { user } } = await admin.auth.admin.getUserById(sessionUser.id)
 
   const { google_access_token, google_refresh_token } = (user ?? sessionUser).user_metadata ?? {}
-  console.log('access_token prefix:', google_access_token?.substring(0, 10) ?? 'MISSING')
-  console.log('refresh_token prefix:', google_refresh_token?.substring(0, 10) ?? 'MISSING')
   if (!google_access_token) throw new Error('No Google access token stored')
 
   const auth = new google.auth.OAuth2(
