@@ -12,6 +12,8 @@ export async function getGmailClient() {
   if (!user) throw new Error('Not authenticated')
 
   const { google_access_token, google_refresh_token } = user.user_metadata ?? {}
+  console.log('getGmailClient: access_token prefix:', google_access_token?.substring(0, 10) ?? 'MISSING')
+  console.log('getGmailClient: refresh_token prefix:', google_refresh_token?.substring(0, 10) ?? 'MISSING')
   if (!google_access_token) throw new Error('No Google access token stored')
 
   const auth = new google.auth.OAuth2(
