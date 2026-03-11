@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Grey */
+  --color-grey-5:   rgba(1, 1, 1, 1);
+  --color-grey-4:   rgba(41, 41, 41, 1);
+  --color-grey-3:   rgba(74, 73, 73, 1);
+  --color-grey-2:   rgba(170, 170, 170, 1);
+  --color-grey-1:   rgba(231, 231, 229, 1);
+  --color-grey-05:  rgba(247, 247, 247, 1);
+  --color-white:    rgba(255, 255, 255, 1);
+
+  /* Purple */
+  --color-purple-25:  rgba(248, 248, 255, 1);
+  --color-purple-50:  rgba(243, 242, 254, 1);
+  --color-purple-100: rgba(233, 232, 253, 1);
+  --color-purple-200: rgba(221, 220, 255, 1);
+  --color-purple-300: rgba(182, 177, 249, 1);
+  --color-purple-400: rgba(138, 124, 255, 1);
+  --color-purple-500: rgba(111, 88, 246, 1);
+  --color-purple-600: rgba(87, 50, 237, 1);
+  --color-purple-700: rgba(74, 33, 218, 1);
+  --color-purple-800: rgba(61, 26, 183, 1);
+  --color-purple-900: rgba(42, 30, 83, 1);
+  --color-purple-950: rgba(32, 27, 55, 1);
+
+  /* Pink */
+  --color-pink-25:  rgba(255, 248, 254, 1);
+  --color-pink-50:  rgba(255, 243, 253, 1);
+  --color-pink-100: rgba(255, 230, 253, 1);
+  --color-pink-200: rgba(255, 204, 250, 1);
+  --color-pink-300: rgba(255, 163, 242, 1);
+  --color-pink-400: rgba(255, 109, 233, 1);
+  --color-pink-500: rgba(255, 46, 231, 1);
+  --color-pink-600: rgba(227, 22, 199, 1);
+  --color-pink-700: rgba(189, 14, 162, 1);
+  --color-pink-800: rgba(154, 14, 131, 1);
+  --color-pink-900: rgba(68, 29, 61, 1);
+  --color-pink-950: rgba(48, 14, 41, 1);
+
+  /* Info */
+  --color-info-25:  rgba(240, 253, 255, 1);
+  --color-info-50:  rgba(228, 252, 255, 1);
+  --color-info-100: rgba(215, 245, 254, 1);
+  --color-info-200: rgba(180, 239, 253, 1);
+  --color-info-300: rgba(136, 231, 252, 1);
+  --color-info-400: rgba(76, 210, 250, 1);
+  --color-info-500: rgba(11, 171, 251, 1);
+  --color-info-600: rgba(11, 146, 249, 1);
+  --color-info-700: rgba(6, 123, 249, 1);
+  --color-info-800: rgba(13, 90, 191, 1);
+  --color-info-900: rgba(25, 61, 105, 1);
+  --color-info-950: rgba(16, 40, 77, 1);
+
+  /* Success */
+  --color-success-25:  rgba(240, 255, 246, 1);
+  --color-success-50:  rgba(227, 255, 238, 1);
+  --color-success-100: rgba(207, 255, 227, 1);
+  --color-success-200: rgba(175, 250, 208, 1);
+  --color-success-300: rgba(119, 254, 179, 1);
+  --color-success-400: rgba(42, 231, 127, 1);
+  --color-success-500: rgba(14, 208, 101, 1);
+  --color-success-600: rgba(2, 177, 81, 1);
+  --color-success-700: rgba(5, 143, 67, 1);
+  --color-success-800: rgba(10, 113, 58, 1);
+  --color-success-900: rgba(19, 66, 40, 1);
+  --color-success-950: rgba(17, 48, 31, 1);
+
+  /* Warning */
+  --color-warning-25:  rgba(255, 254, 237, 1);
+  --color-warning-50:  rgba(255, 253, 220, 1);
+  --color-warning-100: rgba(255, 251, 197, 1);
+  --color-warning-200: rgba(255, 247, 135, 1);
+  --color-warning-300: rgba(255, 237, 72, 1);
+  --color-warning-400: rgba(255, 222, 30, 1);
+  --color-warning-500: rgba(252, 191, 4, 1);
+  --color-warning-600: rgba(224, 148, 0, 1);
+  --color-warning-700: rgba(185, 105, 4, 1);
+  --color-warning-800: rgba(121, 85, 32, 1);
+  --color-warning-900: rgba(72, 61, 25, 1);
+  --color-warning-950: rgba(44, 38, 20, 1);
+
+  /* Danger */
+  --color-danger-25:  rgba(255, 248, 248, 1);
+  --color-danger-50:  rgba(254, 242, 242, 1);
+  --color-danger-100: rgba(255, 225, 225, 1);
+  --color-danger-200: rgba(255, 224, 224, 1);
+  --color-danger-300: rgba(255, 169, 169, 1);
+  --color-danger-400: rgba(255, 115, 115, 1);
+  --color-danger-500: rgba(240, 61, 61, 1);
+  --color-danger-600: rgba(222, 36, 36, 1);
+  --color-danger-700: rgba(186, 27, 27, 1);
+  --color-danger-800: rgba(117, 29, 29, 1);
+  --color-danger-900: rgba(63, 30, 30, 1);
+  --color-danger-950: rgba(48, 28, 28, 1);
+
+  /* Semantic aliases used throughout the app */
+  --color-bg:          rgba(247, 247, 247, 1); /* grey-05 */
+  --color-surface:     rgba(255, 255, 255, 1); /* white */
+  --color-border:      rgba(231, 231, 229, 1); /* grey-1 */
+  --color-text:        rgba(41, 41, 41, 1);    /* grey-4 */
+  --color-text-muted:  rgba(170, 170, 170, 1); /* grey-2 */
+  --color-accent:      rgba(14, 208, 101, 1);  /* success-500 — unread dots */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Also expose as raw CSS vars for use in inline styles */
+  --grey-5:   rgba(1, 1, 1, 1);
+  --grey-4:   rgba(41, 41, 41, 1);
+  --grey-3:   rgba(74, 73, 73, 1);
+  --grey-2:   rgba(170, 170, 170, 1);
+  --grey-1:   rgba(231, 231, 229, 1);
+  --grey-05:  rgba(247, 247, 247, 1);
+  --white:    rgba(255, 255, 255, 1);
+
+  --purple-500: rgba(111, 88, 246, 1);
+  --info-500:   rgba(11, 171, 251, 1);
+  --success-500: rgba(14, 208, 101, 1);
+  --warning-500: rgba(252, 191, 4, 1);
+  --danger-500:  rgba(240, 61, 61, 1);
+  --pink-500:    rgba(255, 109, 233, 1);
+}
+
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--grey-4);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent double-tap zoom on all interactive controls */
+button,
+a,
+[role="button"],
+[role="menuitem"],
+[role="menuitemcheckbox"],
+[role="menuitemradio"],
+[role="option"] {
+  touch-action: manipulation;
+}
+
+/* Match tap highlight to design */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  color: var(--grey-4);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px rgba(219,219,219,0.5), 0 4px 8px rgba(0,0,0,0.08);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Subtle scrollbar for dropdowns */
+.dropdown-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(170, 170, 170) transparent;
+  overscroll-behavior: contain;
+}
+.dropdown-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.dropdown-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+.dropdown-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown-scroll::-webkit-scrollbar-thumb {
+  background: rgba(170, 170, 170, 0.18);
+  border-radius: 99px;
+}
+.dropdown-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(170, 170, 170, 0.38);
+}
+
+/* Email body: override newsletter fonts and constrain images only */
+.email-body * {
+  font-family: inherit !important;
+}
+.email-body img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.email-body h1 { font-size: 1.125rem !important; font-weight: 600 !important; }
+.email-body h2 { font-size: 1rem !important; font-weight: 600 !important; }
+.email-body h3, .email-body h4, .email-body h5, .email-body h6 { font-size: 0.9375rem !important; font-weight: 600 !important; }
+
+/* Read-state diagonal hatching on newsletter rows */
+.stripe-read {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(0, 0, 0, 0.030) 8px,
+    rgba(0, 0, 0, 0.030) 12px
+  );
 }
