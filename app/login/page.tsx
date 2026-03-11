@@ -18,6 +18,10 @@ export default function LoginPage() {
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
         scopes: 'email https://www.googleapis.com/auth/gmail.modify',
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       },
     })
   }
