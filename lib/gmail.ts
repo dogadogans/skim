@@ -7,13 +7,17 @@ import * as cheerio from 'cheerio'
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
 export async function getGmailClient() {
+  // Get the user ID from the session
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user: sessionUser } } = await supabase.auth.getUser()
+  if (!sessionUser) throw new Error('Not authenticated')
+
+  // Read tokens from the database via admin client (always fresh, not from JWT)
+  const admin = createAdminClient()
+  const { data: { user } } = await admin.auth.admin.getUserById(sessionUser.id)
   if (!user) throw new Error('Not authenticated')
 
   const { google_access_token, google_refresh_token } = user.user_metadata ?? {}
-  console.log('getGmailClient: access_token prefix:', google_access_token?.substring(0, 10) ?? 'MISSING')
-  console.log('getGmailClient: refresh_token prefix:', google_refresh_token?.substring(0, 10) ?? 'MISSING')
   if (!google_access_token) throw new Error('No Google access token stored')
 
   const auth = new google.auth.OAuth2(

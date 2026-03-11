@@ -30,8 +30,6 @@ export async function GET(request: Request) {
             google_refresh_token: session.provider_refresh_token,
           },
         })
-        // Refresh the session so the updated metadata is reflected in the JWT
-        await supabase.auth.refreshSession()
       }
 
       return NextResponse.redirect(`${origin}/`)
