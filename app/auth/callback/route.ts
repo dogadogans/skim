@@ -21,6 +21,8 @@ export async function GET(request: Request) {
 
       // Store Google tokens in user metadata so we can use them server-side
       if (session.provider_token) {
+        console.log('provider_token prefix:', session.provider_token.substring(0, 10))
+        console.log('provider_refresh_token prefix:', session.provider_refresh_token?.substring(0, 10))
         const admin = createAdminClient()
         await admin.auth.admin.updateUserById(user.id, {
           user_metadata: {
