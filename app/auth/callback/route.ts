@@ -20,8 +20,6 @@ export async function GET(request: Request) {
       }
 
       // Store Google tokens in user metadata so we can use them server-side
-      console.log('provider_token present:', !!session.provider_token)
-      console.log('provider_refresh_token present:', !!session.provider_refresh_token)
       if (session.provider_token) {
         const admin = createAdminClient()
         await admin.auth.admin.updateUserById(user.id, {
@@ -30,6 +28,8 @@ export async function GET(request: Request) {
             google_refresh_token: session.provider_refresh_token,
           },
         })
+        // Refresh the session so the updated metadata is reflected in the JWT
+        await supabase.auth.refreshSession()
       }
 
       return NextResponse.redirect(`${origin}/`)
