@@ -166,7 +166,10 @@ const NOISE_DOMAINS = [
 const NOISE_PATTERNS = [
   'unsubscribe', 'optout', 'opt-out', 'remove', 'manage-preference', 'email-preference', 'list-manage',
   'utm_source=email', '/app-link/', 'substack.com/profile', 'substack.com/@',
+  '/image/fetch/', '/image/upload/',
 ]
+const IMAGE_EXTENSIONS = /\.(png|jpe?g|gif|webp|svg|bmp|ico|avif|tiff?)(\?|$)/i
+const IMAGE_CDN_DOMAINS = ['substackcdn.com', 'imgix.net', 'cloudinary.com', 'cdn.shopify.com']
 // Redirect/tracker URL path patterns — only filtered when anchor text is itself a raw URL
 const REDIRECT_PATTERNS = ['/redirect/', '/click/', '/track/', '/open/']
 const NOISE_TEXT = [
@@ -187,9 +190,11 @@ function isNoiseUrl(url: string, text: string): boolean {
   // Redirect/tracker URLs: only filter when anchor text is itself a raw URL (no human title)
   const textIsUrl = text.startsWith('http') || text.startsWith('www.')
   if (REDIRECT_PATTERNS.some(p => lower.includes(p)) && textIsUrl) return true
+  if (IMAGE_EXTENSIONS.test(lower)) return true
   try {
     const hostname = new URL(url).hostname.replace('www.', '')
     if (NOISE_DOMAINS.includes(hostname)) return true
+    if (IMAGE_CDN_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d))) return true
   } catch { return true }
   return false
 }
@@ -266,7 +271,7 @@ export async function getEmailDetail(id: string): Promise<EmailDetail> {
       'a', 'img',
     ],
     allowedAttributes: {
-      '*': ['style', 'class', 'align', 'valign', 'bgcolor', 'color', 'width', 'height', 'cellpadding', 'cellspacing', 'border'],
+      '*': ['style', 'class', 'align', 'valign', 'bgcolor', 'color', 'cellpadding', 'cellspacing', 'border'],
       'a': ['href', 'target', 'rel', 'name'],
       'img': ['src', 'alt', 'width', 'height'],
       'td': ['colspan', 'rowspan'],
@@ -279,7 +284,7 @@ export async function getEmailDetail(id: string): Promise<EmailDetail> {
         attribs: { ...attribs, target: '_blank', rel: 'noopener noreferrer' },
       }),
     },
-  }).replace(/font-size\s*:[^;}"']+/gi, '').replace(/font-family\s*:[^;}"']+/gi, '')
+  }).replace(/font-size\s*:[^;}"']+/gi, '').replace(/font-family\s*:[^;}"']+/gi, '').replace(/min-width\s*:[^;}"']+/gi, '').replace(/width\s*:\s*\d+px\s*;?/gi, '')
 
   // Extract content links using cheerio
   const $ = cheerio.load(rawHtml)

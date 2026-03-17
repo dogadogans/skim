@@ -201,13 +201,23 @@ a {
   background: rgba(170, 170, 170, 0.38);
 }
 
-/* Email body: override newsletter fonts and constrain images only */
+/* Email body: override newsletter fonts and prevent overflow */
+.email-body {
+  overflow-x: hidden;
+}
 .email-body * {
   font-family: inherit !important;
 }
 .email-body img {
   max-width: 100% !important;
   height: auto !important;
+}
+.email-body img[class*="avatar"] {
+  width: 32px !important;
+  height: 32px !important;
+}
+.email-body table {
+  max-width: 100% !important;
 }
 .email-body h1 { font-size: 1.125rem !important; font-weight: 600 !important; }
 .email-body h2 { font-size: 1rem !important; font-weight: 600 !important; }

@@ -206,6 +206,15 @@ export default function EmailDetailPage() {
     replace(domNode: DOMNode) {
       if (domNode instanceof Element && domNode.name === 'a') {
         const href = domNode.attribs.href ?? '';
+        // If the link wraps only an image, render it as a plain linked image
+        const onlyImg = domNode.children.length === 1 && domNode.children[0] instanceof Element && (domNode.children[0] as Element).name === 'img';
+        if (onlyImg) {
+          return (
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {domToReact(domNode.children as DOMNode[], parserOptions)}
+            </a>
+          );
+        }
         const contentLink = contentLinkMap.get(href);
         if (contentLink) {
           const saved = bookmarkedLinks.has(contentLink.id);
@@ -298,7 +307,7 @@ export default function EmailDetailPage() {
         </div>
 
         {/* Email body */}
-        <div className="p-3 bg-white rounded-bl-lg rounded-br-lg shadow-[0px_0px_0px_1px_rgba(242,242,242,1.00)] shadow-[0px_0px_0px_1px_rgba(150,150,150,0.08)] overflow-x-auto">
+        <div className="p-3 bg-white rounded-bl-lg rounded-br-lg shadow-[0px_0px_0px_1px_rgba(242,242,242,1.00)] shadow-[0px_0px_0px_1px_rgba(150,150,150,0.08)] overflow-x-hidden">
           <div className="text-sm text-grey-3 leading-relaxed email-body">
             {parse(email.htmlBody, parserOptions)}
           </div>
